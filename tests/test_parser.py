@@ -73,6 +73,11 @@ def test_slides():
     assert len(doc.slides) == 2
 
 
+def test_parse_slide_notes_keep_line_breaks():
+    doc = parse("---\ntheme: t\n---\n\n<!--\n- first point\n  - nested\n- second point\n-->\n\n## Slide")
+    assert doc.slides[0].notes == "- first point\n- nested\n- second point"
+
+
 def test_hidden_slide():
     doc = parse("---\ntheme: t\n---\n\n# First\n\n---\n\n@hidden\n\n# Hidden\n\n---\n\n# Third")
     assert len(doc.slides) == 2
