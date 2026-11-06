@@ -47,7 +47,7 @@ def _build(file: Path, output_dir: Optional[Path], pdf: bool,
     out_dir = output_dir or file.parent / "dist"
     out_dir.mkdir(parents=True, exist_ok=True)
     _symlink_assets(file.parent, out_dir)
-    stem = file.stem
+    stem = file.name.removesuffix(".deck.md") if file.name.endswith(".deck.md") else file.stem
 
     if doc.meta.theme and doc.meta.theme != "default":
         theme_css = load_theme(doc.meta.theme)
